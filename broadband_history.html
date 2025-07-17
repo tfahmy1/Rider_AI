@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>History of Broadband Internet</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #e6f0ff;
+    }
+
+    h1 {
+      text-align: center;
+      color: #003366;
+    }
+
+    .section {
+      background: #ffffff;
+      border-radius: 10px;
+      margin: 20px auto;
+      max-width: 800px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .section button {
+      background-color: #007acc;
+      color: white;
+      padding: 15px;
+      width: 100%;
+      text-align: left;
+      border: none;
+      outline: none;
+      font-size: 18px;
+      transition: background-color 0.3s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .section button:hover {
+      background-color: #005fa3;
+    }
+
+    .content {
+      display: none;
+      padding: 20px;
+      border-top: 1px solid #ddd;
+      background: #f9f9f9;
+    }
+
+    .arrow {
+      transition: transform 0.3s;
+    }
+
+    .rotate {
+      transform: rotate(90deg);
+    }
+
+    .timeline-horizontal {
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      padding: 10px 0;
+      position: relative;
+    }
+
+    .timeline-horizontal::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #007acc;
+      z-index: 0;
+    }
+
+    .timeline-item {
+      flex: 0 0 auto;
+      width: 200px;
+      margin: 0 20px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-item::before {
+      content: '';
+      display: block;
+      margin: 0 auto 10px;
+      width: 14px;
+      height: 14px;
+      background: #007acc;
+      border-radius: 50%;
+      border: 2px solid white;
+      position: relative;
+      top: 10px;
+    }
+
+    .timeline-item h4 {
+      margin: 10px 0 5px;
+      color: #003366;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .tech-definitions {
+      background-color: #fff5e6;
+      border: 1px solid #ffc107;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    .tech-definitions h4 {
+      margin-top: 0;
+      color: #cc7a00;
+    }
+  </style>
+</head>
+<body>
+  <h1>History of Broadband Internet</h1>
+
+  <div class="section">
+    <button onclick="toggleSection(this)">
+      Milestones <span class="arrow">▶</span>
+    </button>
+    <div class="content">
+      <div class="timeline-horizontal">
+        <div class="timeline-item">
+          <h4>1990s</h4>
+          <p>DSL and cable modems emerge as broadband options.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>2000</h4>
+          <p>Broadband surpasses dial-up in U.S. homes.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>2010s</h4>
+          <p>Fiber and 4G LTE expand access and speeds.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>2020s</h4>
+          <p>5G and satellite broadband (e.g., Starlink) rise.</p>
+        </div>
+      </div>
+      <div class="tech-definitions">
+        <h4>Technical Definitions</h4>
+        <p><strong>DSL:</strong> Digital Subscriber Line, a technology that transmits digital data over telephone lines.</p>
+        <p><strong>Cable:</strong> Internet provided through coaxial cable networks originally designed for television.</p>
+        <p><strong>Fiber:</strong> Uses light to transmit data at very high speeds through fiber-optic cables.</p>
+        <p><strong>4G LTE:</strong> Fourth-generation mobile broadband with high-speed wireless communication for mobile devices.</p>
+        <p><strong>5G:</strong> The fifth generation of mobile networks, offering ultra-low latency and gigabit speeds.</p>
+        <p><strong>Satellite:</strong> Internet delivered via communication satellites, suitable for remote or rural areas.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <button onclick="toggleSection(this)">
+      Patents <span class="arrow">▶</span>
+    </button>
+    <div class="content">
+      <p>Key broadband-related patents include technologies for DSL modulation (Lucent Technologies), DOCSIS cable standards, and fiber-optic multiplexing techniques. These innovations enabled faster, scalable data transmission.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <button onclick="toggleSection(this)">
+      Widespread Adoption <span class="arrow">▶</span>
+    </button>
+    <div class="content">
+      <div class="timeline-horizontal">
+        <div class="timeline-item">
+          <h4>2000</h4>
+          <p>Early adoption begins in urban U.S. and Europe.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>2007</h4>
+          <p>Over 50% of U.S. households adopt broadband.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>2010s</h4>
+          <p>Adoption surges globally with mobile broadband.</p>
+        </div>
+        <div class="timeline-item">
+          <h4>2020s</h4>
+          <p>Broadband access recognized as essential infrastructure.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <button onclick="toggleSection(this)">
+      Bandwidth Speeds <span class="arrow">▶</span>
+    </button>
+    <div class="content">
+      <ul>
+        <li><strong>1999:</strong> DSL & cable ~1 Mbps</li>
+        <li><strong>2005:</strong> Typical speeds ~5 Mbps</li>
+        <li><strong>2015:</strong> Fiber offers 100+ Mbps</li>
+        <li><strong>2024:</strong> Gigabit+ speeds common in urban areas</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <button onclick="toggleSection(this)">
+      Use Cases & Applications <span class="arrow">▶</span>
+    </button>
+    <div class="content">
+      <p>Broadband enabled streaming video (Netflix, YouTube), video conferencing (Zoom), cloud computing, smart home devices, online gaming, telemedicine, and remote education.</p>
+    </div>
+  </div>
+
+  <script>
+    function toggleSection(button) {
+      const content = button.nextElementSibling;
+      const arrow = button.querySelector('.arrow');
+      const isVisible = content.style.display === 'block';
+      content.style.display = isVisible ? 'none' : 'block';
+      arrow.classList.toggle('rotate', !isVisible);
+    }
+  </script>
+</body>
+</html>
