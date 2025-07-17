@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Spinner</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f4f1ed;
+      color: #4a3f35;
+      text-align: center;
+      padding: 2em;
+    }
+    textarea {
+      width: 300px;
+      height: 150px;
+      font-size: 1em;
+      padding: 0.5em;
+      margin-bottom: 1em;
+      border: 2px solid #8e735b;
+      background-color: #f9f5f1;
+      color: #4a3f35;
+    }
+    button {
+      background-color: #a58e74;
+      color: white;
+      border: none;
+      padding: 0.8em 1.5em;
+      font-size: 1em;
+      cursor: pointer;
+      margin: 0.5em;
+      border-radius: 8px;
+    }
+    canvas {
+      margin-top: 1em;
+    }
+    .balloon {
+      position: fixed;
+      bottom: -100px;
+      width: 30px;
+      height: 45px;
+      border-radius: 50% 50% 50% 50%;
+      box-shadow: inset -5px -10px 15px rgba(0,0,0,0.2);
+      animation: rise 4s ease-out forwards;
+    }
+    .balloon::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      width: 2px;
+      height: 20px;
+      background: #444;
+      transform: translateX(-50%);
+    }
+    @keyframes rise {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>🎡 Student Spinner</h1>
+  <p>Enter names below, one per line:</p>
+  <textarea id="namesInput" placeholder="e.g.\nAlice\nBob\nCharlie"></textarea><br>
+  <button onclick="generateWheel()">Generate Wheel</button>
+  <button onclick="spinWheel()">SPIN</button>
+  <canvas id="wheelCanvas" width="500" height="500"></canvas>
+
+  <script>
+    const canvas = document.getElementById('wheelCanvas');
+    const ctx = canvas.getContext('2d');
+    let names = [];
+    let angles = [];
+    let spinning = false;
+    let currentAngle = 0;
+    let spinTimeout;
+    const colors = ['#a67c52', '#b5a27a', '#c1b497', '#6c584c', '#967259', '#806b58', '#c2b280', '#918151'];
+    const rainbowColors = ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#4B0082', '#9400D3'];
+
+    function generateWheel() {
+      const input = document.getElementById('namesInput').value.trim();
+      names = input.split('\n').map(name => name.trim()).filter(n => n);
+      if (names.length === 0) return alert("Enter at least one name.");
+
+      drawWheel();
+    }
+
+    function drawWheel() {
+      const radius = canvas.width / 2;
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const arcSize = (2 * Math.PI) / names.length;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < names.length; i++) {
+        const startAngle = i * arcSize + currentAngle;
+        const endAngle = startAngle + arcSize;
+
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.fill();
+        ctx.strokeStyle = "#fff";
+        ctx.stroke();
+
+        ctx.save();
+        ctx.translate(centerX, centerY);
+        ctx.rotate(startAngle + arcSize / 2);
+        ctx.textAlign = "right";
+        ctx.fillStyle = "#fff";
+        ctx.font = "16px sans-serif";
+        ctx.fillText(names[i], radius - 10, 5);
+        ctx.restore();
+      }
+
+      // Arrow
+      ctx.beginPath();
+      ctx.moveTo(centerX - 10, 10);
+      ctx.lineTo(centerX + 10, 10);
+      ctx.lineTo(centerX, 40);
+      ctx.fillStyle = "#4a3f35";
+      ctx.fill();
+    }
+
+    function spinWheel() {
+      if (spinning || names.length === 0) return;
+      spinning = true;
+
+      let spinAngle = Math.random() * 2000 + 3000; // Total rotation
+      let duration = 4000; // ms
+      let start = null;
+
+      function animate(timestamp) {
+        if (!start) start = timestamp;
+        const progress = timestamp - start;
+        const easeOut = Math.pow(1 - progress / duration, 2);
+        currentAngle += (spinAngle / duration) * (1 - easeOut);
+        drawWheel();
+
+        if (progress < duration) {
+          requestAnimationFrame(animate);
+        } else {
+          spinning = false;
+          pickWinner();
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    function pickWinner() {
+      const arcSize = (2 * Math.PI) / names.length;
+      let normalizedAngle = (2 * Math.PI - (currentAngle % (2 * Math.PI))) % (2 * Math.PI);
+      const index = Math.floor(normalizedAngle / arcSize);
+      const winner = names[index];
+      alert(`🎉 ${winner} is selected! 🎈`);
+      launchBalloons();
+    }
+
+    function launchBalloons() {
+      for (let i = 0; i < 15; i++) {
+        const b = document.createElement('div');
+        b.className = 'balloon';
+        b.style.left = Math.random() * window.innerWidth + 'px';
+        b.style.background = `radial-gradient(circle, ${rainbowColors[i % rainbowColors.length]}, #222)`;
+        document.body.appendChild(b);
+        setTimeout(() => b.remove(), 4000);
+      }
+    }
+  </script>
+</body>
+</html>
